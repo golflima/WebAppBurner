@@ -1,0 +1,43 @@
+﻿*******************************************************************************************************************************
+* MetaN - Meta NET framework
+* GL.MetaN.ReflectionConsole - Gives the ability to .NET console applications to interact with .NET objects
+*******************************************************************************************************************************
+* Author    : Jérémy WALTHER (jeremy.walther@golflima.net)
+* Version   : 1.0, 14/06/2015
+* Licence   : LGPL v3
+*******************************************************************************************************************************
+
+* Changelog :
+
+
+* How to use 'GL.MetaN.ReflectionConsole' in a console application ?
+    Simply call method 'Run()' on a ConsoleAppCommandManager :
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Class1 class1 = new Class1();
+            Class2 class2 = new Class2();
+            Class3 class3 = new Class3();
+            ConsoleAppCommandManager commander = new ConsoleAppCommandManager(
+                new CommandContainer(class1), 
+                new CommandContainer(class2), 
+                new CommandContainer(class3),
+                new CommandContainer(typeof(Math)));
+            commander.Run();
+        }
+    }
+
+* How to use 'GL.MetaN.ReflectionConsole' in a classic .NET application or library ?
+	Simply use the class "CommandContainer" :
+	class Class1
+	{
+		int count = 0;
+		public int Increment(int step) { return this.count+=step; }
+	}
+	CommandContainer container = new CommandContainer(new Class1());
+	int i1 = container.ExecuteCommand("Increment 4"); // returns 4
+	int i2 = container.ExecuteCommand("Increment 2"); // returns 6
+	container.ExecuteCommand("$i = Increment 2"); // returns 8 and store result in var "i"
+	container.ExecuteCommand("$i = Increment $i"); // returns 16 and store result in var "i"
+	container.ExecuteCommand("Increment 4; $i = Increment 12"); // returns 32 and store result in var "i"

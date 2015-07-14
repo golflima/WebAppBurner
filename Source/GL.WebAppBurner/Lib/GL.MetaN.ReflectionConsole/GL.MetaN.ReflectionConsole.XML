@@ -1,0 +1,1401 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>GL.MetaN.ReflectionConsole</name>
+    </assembly>
+    <members>
+        <member name="T:GL.MetaN.ReflectionConsole.Attributes.CommandAvailabilityAttribute">
+            <summary>
+            Sets the availability condition to satisfy in aim to use this method as a command.
+            </summary>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.Attributes.CommandAvailabilityAttribute.#ctor(GL.MetaN.ReflectionConsole.CheckCommandAvailability)">
+            <summary>
+            Gets a new instance of CommandAvailabilityAttribute.
+            </summary>
+            <param name="check">The availability condition to satisfy in aim to use this method as a command.</param>
+            <exception cref="T:System.ArgumentNullException">'check' is null.</exception>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.Attributes.CommandAvailabilityAttribute.Check">
+            <summary>
+            Gets the availability condition to satisfy in aim to use this method as a command.
+            </summary>
+        </member>
+        <member name="T:GL.MetaN.ReflectionConsole.Attributes.CommandParameterAttribute">
+            <summary>
+            Describes a command parameter.
+            <para>This attribute should be placed for each parameters of the method.</para>
+            </summary>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.Attributes.CommandParameterAttribute.#ctor(System.String,System.String)">
+            <summary>
+            Describes a command parameter.
+            </summary>
+            <param name="name">Parameter name.</param>
+            <param name="description">Parameter description.</param>
+            <exception cref="T:System.ArgumentNullException">'name' is null.</exception>
+            <exception cref="T:System.ArgumentNullException">'description' is null.</exception>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.Attributes.CommandParameterAttribute.Name">
+            <summary>
+            Gets the parameter name.
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.Attributes.CommandParameterAttribute.Description">
+            <summary>
+            Gets the parameter description.
+            </summary>
+        </member>
+        <member name="T:GL.MetaN.ReflectionConsole.Attributes.CommandReturnAttribute">
+            <summary>
+            Describes a command return/result.
+            </summary>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.Attributes.CommandReturnAttribute.#ctor(System.String)">
+            <summary>
+            Describes a command return/result.
+            </summary>
+            <param name="description">Description of object returned / of the result.</param>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.Attributes.CommandReturnAttribute.Description">
+            <summary>
+            Gets the description of object returned / of the result.
+            </summary>
+        </member>
+        <member name="T:GL.MetaN.ReflectionConsole.Attributes.CommandSummaryAttribute">
+            <summary>
+            Describes a command.
+            </summary>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.Attributes.CommandSummaryAttribute.#ctor(System.String)">
+            <summary>
+            Describes a command.
+            </summary>
+            <param name="summary">Command summary, in a short single line.</param>
+            <exception cref="T:System.ArgumentNullException">'summary' is null.</exception>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.Attributes.CommandSummaryAttribute.Summary">
+            <summary>
+            Gets the command summary, in a short single line.
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.Attributes.CommandSummaryAttribute.Description">
+            <summary>
+            Gets or sets the full command description.
+            </summary>
+        </member>
+        <member name="T:GL.MetaN.ReflectionConsole.CommandInfo">
+            <summary>
+            Command information. Provides access to command metadata.
+            </summary>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.CommandInfo.#ctor(GL.MetaN.ReflectionConsole.CommandContainer,System.Reflection.MethodInfo)">
+            <summary>
+            Gets a new instance of command information.
+            </summary>
+            <param name="container">Command container, containing the command.</param>
+            <param name="methodInfo">Method information, which represents the command.</param>
+            <exception cref="T:System.ArgumentNullException">'container' is null.</exception>
+            <exception cref="T:System.ArgumentNullException">'methodInfo' is null.</exception>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.CommandInfo.ToString">
+            <summary>
+            Gets the string representation of the CommandInfo, corresponding to the syntax to call the command from a CommandCollectionContainer.
+            </summary>
+            <returns>The string representation of the command, text between [] should be replaced with user values.</returns>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.CommandInfo.Container">
+            <summary>
+            Gets the command container containing the command.
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.CommandInfo.MethodInfo">
+            <summary>
+            Gets the method information which represents the command.
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.CommandInfo.IsValid">
+            <summary>
+            Indicates if the command is valid (true) (if it can be executed by the associated container) or not (false).
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.CommandInfo.Summary">
+            <summary>
+            Gets the summary attribute of the command.
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.CommandInfo.Parameters">
+            <summary>
+            Gets the parameters information for this command.
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.CommandInfo.Return">
+            <summary>
+            Gets the return attribute for this command.
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.CommandInfo.IsCommand">
+            <summary>
+            Indicates if the command has a "CommandAttribute" (true) or not (false).
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.CommandInfo.IsIgnored">
+            <summary>
+            Indicates if the command has a "CommandIgnoreAttribute" (true) or not (false).
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.CommandInfo.IsAvailable">
+            <summary>
+            Indicates if the command is available (true) or not (false).
+            <para>Command is available if it does not have any "CommandAvailabilityAttribute", or if the Check property of its "CommandAvailabilityAttribute" returns true.</para>
+            </summary>
+        </member>
+        <member name="T:GL.MetaN.ReflectionConsole.CommandParameterInfo">
+            <summary>
+            Command parameter information. Provides access to command parameter metadata.
+            </summary>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.CommandParameterInfo.#ctor(GL.MetaN.ReflectionConsole.CommandContainer,System.Reflection.ParameterInfo,GL.MetaN.ReflectionConsole.Attributes.CommandParameterAttribute)">
+            <summary>
+            Gets a new instance of command parameter information.
+            </summary>
+            <param name="container">Command container, containing the command of the parameter.</param>
+            <param name="parameterInfo">Parameter metadata information.</param>
+            <param name="parameterAttribute">CommandParameterAttribute, if any.</param>
+            <exception cref="T:System.ArgumentNullException">'container' is null.</exception>
+            <exception cref="T:System.ArgumentNullException">'parameterInfo' is null.</exception>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.CommandParameterInfo.Container">
+            <summary>
+            Gets the command container containing the command of the parameter.
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.CommandParameterInfo.ParameterInfo">
+            <summary>
+            Gets the parameter metadata information.
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.CommandParameterInfo.ParameterAttribute">
+            <summary>
+            Gets the CommandParameterAttribute, if the command has an attribute corresponding to this parameter.
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.CommandParameterInfo.ParameterType">
+            <summary>
+            Gets the parameter Type.
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.CommandParameterInfo.Name">
+            <summary>
+            Gets the parameter name.
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.CommandParameterInfo.Description">
+            <summary>
+            Gets the parameter description. May be null.
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.CommandParameterInfo.Position">
+            <summary>
+            Gets the zero-based position of the parameter in the formal parameter list.
+            </summary>
+        </member>
+        <member name="T:GL.MetaN.ReflectionConsole.CheckCommandAvailability">
+            <summary>
+            A method which compute the availability of a given command of a given container.
+            </summary>
+            <param name="container">The command container.</param>
+            <param name="command">The command.</param>
+            <returns>true if command is available; otherwise, false.</returns>
+        </member>
+        <member name="T:GL.MetaN.ReflectionConsole.Helpers.AssemblyHelper">
+            <summary>
+            Helper for manipulating assemblies.
+            </summary>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.Helpers.AssemblyHelper.GetAssemblyBuildDate(System.Reflection.Assembly)">
+            <summary>
+            Compute build date for given assembly.
+            <para>Based on Microsoft assembly versionning algorithm, the assembly must use the following wildcard for its versionning (in AssemblyInfo.cs file) :</para>
+            <para>[assembly: AssemblyVersion("1.0.*")]</para>
+            <para>See: https://msdn.microsoft.com/en-us/library/system.reflection.assemblyversionattribute.aspx </para>
+            </summary>
+            <param name="assembly">Assembly.</param>
+            <returns>Build date.</returns>
+        </member>
+        <member name="T:GL.MetaN.ReflectionConsole.I18nConsole">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.I18nConsole.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.I18nConsole.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.I18nConsole.AskCommand">
+            <summary>
+              Looks up a localized string similar to Command.
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.I18nConsole.AskCommandWithSelectedContainer">
+            <summary>
+              Looks up a localized string similar to [{0}] Command.
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.I18nConsole.CanFindCommandsContainer">
+            <summary>
+              Looks up a localized string similar to ! Can&apos;t find commands container&quot;.
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.I18nConsole.Command">
+            <summary>
+              Looks up a localized string similar to | \t.{0}.
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.I18nConsole.CommandChoice">
+            <summary>
+              Looks up a localized string similar to | {0})\t{1}.
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.I18nConsole.CommandChoiseWrongKeyPressed">
+            <summary>
+              Looks up a localized string similar to ! Key pressed &apos;{0}&apos; is not associated to a command.
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.I18nConsole.CommandContainerNotFound">
+            <summary>
+              Looks up a localized string similar to ! Command container not found : &apos;{0}&apos;.
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.I18nConsole.CommandInvalid">
+            <summary>
+              Looks up a localized string similar to ! Command invalid.
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.I18nConsole.CommandInvalidTooManyArguments">
+            <summary>
+              Looks up a localized string similar to ! Command invalid, too many arguments.
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.I18nConsole.CommandNotFound">
+            <summary>
+              Looks up a localized string similar to ! Command not found : {0}.
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.I18nConsole.Commands">
+            <summary>
+              Looks up a localized string similar to | \t.{0} [{1}].
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.I18nConsole.ContainerRemoved">
+            <summary>
+              Looks up a localized string similar to &gt; {0} container removed.
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.I18nConsole.ContainersRemoved">
+            <summary>
+              Looks up a localized string similar to &gt; {0} containers removed.
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.I18nConsole.Description">
+            <summary>
+              Looks up a localized string similar to | Description :\t{0}.
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.I18nConsole.Equal">
+            <summary>
+              Looks up a localized string similar to = {0}.
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.I18nConsole.Exception">
+            <summary>
+              Looks up a localized string similar to ! EXCEPTION :.
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.I18nConsole.ExceptionDisplayResultBig">
+            <summary>
+              Looks up a localized string similar to ! EXCEPTION when trying to display result : result is too big or contains a circular reference :.
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.I18nConsole.ExceptionDisplayResultComplex">
+            <summary>
+              Looks up a localized string similar to ! EXCEPTION when trying to display result : result is too complex :.
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.I18nConsole.ExceptionDisplayValueBig">
+            <summary>
+              Looks up a localized string similar to ! EXCEPTION when trying to display actual value : value is too big or contains a circular reference :.
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.I18nConsole.ExceptionDisplayValueComplex">
+            <summary>
+              Looks up a localized string similar to ! EXCEPTION when trying to display actual value : value is too complex :.
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.I18nConsole.Is">
+            <summary>
+              Looks up a localized string similar to &gt; &apos;{0}&apos; is &apos;{1}&apos;.
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.I18nConsole.LoadedCommandFound">
+            <summary>
+              Looks up a localized string similar to | {0} loaded, {1} command found.
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.I18nConsole.LoadedCommandsFound">
+            <summary>
+              Looks up a localized string similar to | {0} loaded, {1} commands found.
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.I18nConsole.MethodNotFound">
+            <summary>
+              Looks up a localized string similar to ! Method &apos;{0}&apos; not found in commands container &apos;{1}&apos;.
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.I18nConsole.MultipleSuitableCommandsFound">
+            <summary>
+              Looks up a localized string similar to &gt; Multiple suitable commands found for &apos;{0}&apos; in &apos;{1}&apos;.
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.I18nConsole.Name">
+            <summary>
+              Looks up a localized string similar to &gt; {0}.
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.I18nConsole.NoCommandContainerSelected">
+            <summary>
+              Looks up a localized string similar to &gt; No command container selected.
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.I18nConsole.Parameter">
+            <summary>
+              Looks up a localized string similar to | Parameter {0} :\t({1}) {2} : {3}.
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.I18nConsole.Restarting">
+            <summary>
+              Looks up a localized string similar to &gt; Restarting ....
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.I18nConsole.ResultSaved">
+            <summary>
+              Looks up a localized string similar to $ Result saved in container &apos;_{0}&apos;.
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.I18nConsole.Return">
+            <summary>
+              Looks up a localized string similar to | Return :\t({0}) {1}.
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.I18nConsole.SelectDesiredCommand">
+            <summary>
+              Looks up a localized string similar to &gt; Please select desired command by pressing associated key :.
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.I18nConsole.Selected">
+            <summary>
+              Looks up a localized string similar to &gt;&gt; &apos;{0}&apos;.
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.I18nConsole.SelectedCommandContainer">
+            <summary>
+              Looks up a localized string similar to &gt; Selected command container : &apos;{0}&apos;, type [&lt;] to deselect it.
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.I18nConsole.Started">
+            <summary>
+              Looks up a localized string similar to * {0} started.
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.I18nConsole.Summary">
+            <summary>
+              Looks up a localized string similar to | Summary :\t{0}.
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.I18nConsole.SyntaxError">
+            <summary>
+              Looks up a localized string similar to ! Syntax error : {0}.
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.I18nConsole.SystemHelp">
+             <summary>
+               Looks up a localized string similar to &gt; SYSTEM HELP
+            &gt; To enter a command, type selected command below between [] then press [Enter].
+             </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.I18nConsole.Terminated">
+            <summary>
+              Looks up a localized string similar to * {0} terminated.
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.I18nConsole.TypeForHelp">
+            <summary>
+              Looks up a localized string similar to &gt; Type [?] for help, [? ?] for system help, [&gt; c] to select &apos;c&apos;, [! q] to quit.
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.I18nConsole.Version">
+            <summary>
+              Looks up a localized string similar to * {0}, version {1}.
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.I18nConsole.VersionFrom">
+            <summary>
+              Looks up a localized string similar to * {0}, version {1}, from {2}.
+            </summary>
+        </member>
+        <member name="T:GL.MetaN.ReflectionConsole.SystemCommands">
+            <summary>
+            System commands used automatically in CommandContainerCollection.
+            </summary>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.SystemCommands.#ctor(GL.MetaN.ReflectionConsole.CommandContainerCollection)">
+            <summary>
+            Internal constructor.
+            </summary>
+            <param name="collection"></param>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.SystemCommands.CheckAvailability(GL.MetaN.ReflectionConsole.SystemCommandTypes)">
+            <summary>
+            Checks if given command is available, accordingly to settings from CommandContainerCollection.
+            </summary>
+            <param name="type">System command type</param>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.SystemCommands.If(System.String,System.String)">
+            <summary>
+            IF-THEN construct.
+            </summary>
+            <param name="conditionStatement">Condition, a command which must returns a bool.</param>
+            <param name="thenStatement">Command executed if condition is true.</param>
+            <returns>Result of thenStatement; otherwise, null.</returns>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.SystemCommands.If(System.String,System.String,System.String)">
+            <summary>
+            IF-THEN-ELSE construct.
+            </summary>
+            <param name="conditionStatement">Condition, a command which must returns a bool.</param>
+            <param name="thenStatement">Command executed if condition is true.</param>
+            <param name="elseStatement">Command executed if condition is false.</param>
+            <returns>Result of thenStatement; otherwise, result of elseStatement.</returns>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.SystemCommands.Not(System.String)">
+            <summary>
+            NOT operator.
+            </summary>
+            <param name="statement">Boolean statement.</param>
+            <returns>NOT 'statement'.</returns>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.SystemCommands.And(System.String,System.String)">
+            <summary>
+            AND operator.
+            </summary>
+            <param name="leftStatement">Left boolean operand.</param>
+            <param name="rightStatement">Right boolean operand.</param>
+            <returns>'leftStatement' &amp;&amp; 'rightStatement'.</returns>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.SystemCommands.Or(System.String,System.String)">
+            <summary>
+            OR operator.
+            </summary>
+            <param name="leftStatement">Left boolean operand.</param>
+            <param name="rightStatement">Right boolean operand.</param>
+            <returns>'leftStatement' || 'rightStatement'.</returns>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.SystemCommands.Equals(System.String,System.String)">
+            <summary>
+            EQUALITY operator.
+            </summary>
+            <param name="leftStatement">Left boolean operand.</param>
+            <param name="rightStatement">Right boolean operand.</param>
+            <returns>'leftStatement' == 'rightStatement'.</returns>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.SystemCommands.While(System.String,System.String)">
+            <summary>
+            WHILE loop.
+            </summary>
+            <param name="conditionStatement">Condition, a command which must returns a bool.</param>
+            <param name="doStatement">Command executed while 'conditionStatement' returns true.</param>
+            <returns>The last result of 'doStatement'; otherwise, null.</returns>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.SystemCommands.AddContainer(System.String)">
+            <summary>
+            Adds the value resulting from the 'statementValue' command execution as a new container, using default settings.
+            <para>The name of the new container will be constructed from the Type of the result.</para>
+            </summary>
+            <param name="statementValue">Value to add as a new container.</param>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.SystemCommands.RemoveContainer(System.String)">
+            <summary>
+            Removes the specified container from the collection.
+            </summary>
+            <param name="name">Name of the container to remove.</param>
+            <returns>true if the container was successfully removed; otherwise, false.</returns>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.SystemCommands.GetCommandsInfo">
+            <summary>
+            Gets all available commands info for this collection (every commands for each containers in the collection).
+            </summary>
+            <returns>List of all available commands info.</returns>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.SystemCommands.ClearValues">
+            <summary>
+            Clears stored values.
+            </summary>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.SystemCommands.RemoveValue(System.String)">
+            <summary>
+            Removes a specific stored value.
+            </summary>
+            <param name="name">Name of the stored value to remove.</param>
+            <returns>true if the stored value was successfully removed; otherwise, false.</returns>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.SystemCommands.SetValue(System.String,System.String)">
+            <summary>
+            Sets a new stored value.
+            </summary>
+            <param name="name">Name of the stored value.</param>
+            <param name="valueStatement">Command to execute to get the value.</param>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.SystemCommands.GetValue(System.String)">
+            <summary>
+            Gets a stored value by its name.
+            </summary>
+            <param name="name">Name of the stored value.</param>
+            <returns>The stored value.</returns>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.SystemCommands.New(System.String)">
+            <summary>
+            Instanciates a new object of given Type using its default constructor.
+            </summary>
+            <param name="typeName">Type name to instanciate. Must be declared in 'System' (mscorlib.dll).</param>
+            <returns>The new instance.</returns>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.SystemCommands.New(System.String,System.String)">
+            <summary>
+            Instanciates a new object of given Type using its default constructor.
+            </summary>
+            <param name="typeName">Type name to instanciate. Must be declared in 'assemblyName'.</param>
+            <param name="assemblyName">Name of declaring assembly of 'typeName'.</param>
+            <returns>The new instance.</returns>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.SystemCommands.Regex(System.String,System.String)">
+            <summary>
+            Searches the specified 'input' string for the first occurrence of the regular expression specified in 'pattern'.
+            </summary>
+            <param name="pattern">The regular expression pattern to match.</param>
+            <param name="input">The string to search for a match.</param>
+            <returns>An object that contains information about the match.</returns>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.SystemCommands.RegexMatch(System.String,System.String)">
+            <summary>
+            Searches the specified 'input' string for the first occurrence of the regular expression specified in 'pattern', and gets a value indicating whether the match is successful.
+            </summary>
+            <param name="pattern">The regular expression pattern to match.</param>
+            <param name="input">The string to search for a match.</param>
+            <returns>true if the match is successful; otherwise, false.</returns>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.SystemCommands.RegexValue(System.String,System.String)">
+            <summary>
+            Searches the specified 'input' string for the first occurrence of the regular expression specified in 'pattern', and gets the captured substring from the input string.
+            </summary>
+            <param name="pattern">The regular expression pattern to match.</param>
+            <param name="input">The string to search for a match.</param>
+            <returns>The actual substring that was captured by the match.</returns>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.SystemCommands.RegexReplace(System.String,System.String,System.String)">
+            <summary>
+            Within a specified 'input' string, replaces all strings that match a regular expression 'pattern' with a specified 'replacement' string.
+            </summary>
+            <param name="pattern">The regular expression pattern to match.</param>
+            <param name="input">The string to search for a match.</param>
+            <param name="replacement">The replacement string.</param>
+            <returns>A new string that is identical to the input string, except that a replacement string takes the place of each matched string.</returns>
+        </member>
+        <member name="T:GL.MetaN.ReflectionConsole.CommandBindingPolicy">
+            <summary>
+            Binding policy used by CommandsContainer to search for available commands in Target/TargetType.
+            </summary>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.CommandBindingPolicy.#ctor">
+            <summary>
+            Gets a new instance of commands binding policy used by CommandsContainer to search for available commands in Target/TargetType.
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.CommandBindingPolicy.MethodsPrefix">
+            <summary>
+            Gets or sets the prefix used to search allowed methods in CommandsContainer TargetType/Target to be used as commands.
+            <para>Default value : null.</para>
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.CommandBindingPolicy.MethodsBinding">
+            <summary>
+            Get or sets the BindingFlags used in method 'CommandsContainer.GetMethods()' on CommandsContainer.TargetType to search allowed methods to be used as commands.
+            <para>Default value : BindingFlags(Instance | DeclaredOnly | Public| SetProperty | GetProperty | Static).</para>
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.CommandBindingPolicy.MethodsWhitelist">
+            <summary>
+            Gets or sets a whitelist for method names in CommandsContainer.TargetType to be used as valid commands.
+            <para>If the list is empty, all method names will be accepted.</para>
+            <para>Default value : empty list.</para>
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.CommandBindingPolicy.MethodsBlacklist">
+            <summary>
+            Gets or sets a blacklist for method names in CommandsContainer.TargetType to be ignored (and not be used as valid commands).
+            <para>Default value : empty list.</para>
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.CommandBindingPolicy.OnlyMethodsWithCommandAttribute">
+            <summary>
+            Gets or sets an indicator for including only ('true') methods annoted with 'CommandAttribue' as valid commands in CommandsContainer.TargetType, or to not care about it ('false').
+            <para>Default value : false.</para>
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.CommandBindingPolicy.AlwaysCheckPolicy">
+            <summary>
+            Gets or sets an indicator for always re-evaluating the commands list with the policy.
+            <para>Usefull if commands availability may change during runtime. It may decrease overall performances.</para>
+            <para>Default value : false.</para>
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.CommandBindingPolicy.CheckCommandAvailability">
+            <summary>
+            Gets or sets a delegate to another external method for computing the availability of commands.
+            <para>Default value : null (no external condition to satisfy).</para>
+            </summary>
+        </member>
+        <member name="T:GL.MetaN.ReflectionConsole.CommandContainerCollection">
+            <summary>
+            A collection of command containers, able to execute commands on them.
+            </summary>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.CommandContainerCollection.#ctor">
+            <summary>
+            Gets a new instance of CommandContainerCollection.
+            </summary>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.CommandContainerCollection.Add(GL.MetaN.ReflectionConsole.CommandContainer)">
+            <summary>
+            Adds a new command container into the collection.
+            </summary>
+            <param name="item">Container to add.</param>
+            <exception cref="T:System.ArgumentNullException">'item' is null.</exception>
+            <exception cref="T:System.ArgumentException">A container is already stored in collection with the same Name.</exception>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.CommandContainerCollection.Clear">
+            <summary>
+            Clears all containers from the collection and restores it to its initial state (with system containers).
+            </summary>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.CommandContainerCollection.Contains(GL.MetaN.ReflectionConsole.CommandContainer)">
+            <summary>
+            Determines whether the collection contains a specific command container.
+            </summary>
+            <param name="item">The command container to locate in the collection.</param>
+            <returns>true if 'container' is found in the collection; otherwise, false.</returns>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.CommandContainerCollection.Contains(System.String)">
+            <summary>
+            Determines whether the collection contains a specific command container.
+            </summary>
+            <param name="name">The command container name to locate in the collection.</param>
+            <returns>true if 'container' is found in the collection; otherwise, false.</returns>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.CommandContainerCollection.CopyTo(GL.MetaN.ReflectionConsole.CommandContainer[],System.Int32)">
+            <summary>
+            Copies the elements of the collection to an System.Array, starting at a particular System.Array index.
+            </summary>
+            <param name="array">The one-dimensional System.Array that is the destination of the elements copied from the collection. 
+            The System.Array must have zero-based indexing.</param>
+            <param name="arrayIndex">The zero-based index in array at which copying begins.</param>
+            <exception cref="T:System.ArgumentNullException">array is null.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">arrayIndex is less than 0.</exception>
+            <exception cref="T:System.ArgumentException">The number of elements in the source collection 
+            is greater than the available space from arrayIndex to the end of the destination array.</exception>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.CommandContainerCollection.Remove(GL.MetaN.ReflectionConsole.CommandContainer)">
+            <summary>
+            Removes the first occurrence of a specific command container from the collection.
+            </summary>
+            <param name="item">The command container to remove from the collection.</param>
+            <returns>true if item was successfully removed from the collection; 
+            otherwise, false. This method also returns false if item is not found in the original collection.</returns>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.CommandContainerCollection.Remove(System.String)">
+            <summary>
+            Removes the first occurrence of a specific command container from the collection.
+            </summary>
+            <param name="name">The command container name to remove from the collection.</param>
+            <returns>true if command container was successfully removed from the collection; 
+            otherwise, false. This method also returns false if command container is not found in the original collection.</returns>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.CommandContainerCollection.GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through the collection.
+            </summary>
+            <returns>A System.Collections.Generic.IEnumerator&lt;CommandContainer&gt; that can be used to iterate through the collection.</returns>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.CommandContainerCollection.System#Collections#IEnumerable#GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through the collection.
+            </summary>
+            <returns>A System.Collections.IEnumerator that can be used to iterate through the collection.</returns>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.CommandContainerCollection.Get(System.String)">
+            <summary>
+            Gets the command container in the collection by its name. Returns null if the container is not found.
+            </summary>
+            <param name="name">Name of the container to search for.</param>
+            <returns>The container if it was found in the collection; otherwise, null.</returns>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.CommandContainerCollection.SetStoredValues(System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Sets a dictionary of stored returned values and values usable as parameters for commands.
+            <para>This dictionary will be shared between every containers contained in this collection.</para>
+            </summary>
+            <param name="storedValues">The dictionary.</param>
+            <exception cref="T:System.ArgumentNullException">'storedValues' is null.</exception>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.CommandContainerCollection.SelectContainer(System.String)">
+            <summary>
+            Selects the default command container.
+            <para>Commands of the default selected command container can be call without the prefix {containerName.}.</para>
+            </summary>
+            <param name="name">Name of the command container to select.</param>
+            <returns>true if the container was selected; otherwise, false (container not found in the collection).</returns>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.CommandContainerCollection.SelectContainer(GL.MetaN.ReflectionConsole.CommandContainer)">
+            <summary>
+            Selects the default command container.
+            <para>Commands of the default selected command container can be call without the prefix {containerName.}.</para>
+            </summary>
+            <param name="container">The command container to select.</param>
+            <returns>true if the container was selected; otherwise, false (container not found in the collection).</returns>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.CommandContainerCollection.GetCommands">
+            <summary>
+            Gets all available commands for this collection (every commands for each containers in the collection).
+            </summary>
+            <returns>List of all available commands.</returns>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.CommandContainerCollection.GetCommandsInfo">
+            <summary>
+            Gets all available commands info for this collection (every commands for each containers in the collection).
+            </summary>
+            <returns>List of all available commands info.</returns>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.CommandContainerCollection.ExecuteCommand(System.String)">
+            <summary>
+            Executes given command with its given parameters (JSON).
+            <para>This method uses GetCommands() to retrieve the only matching command.</para>
+            </summary>
+            <param name="input">Command (method information) with parameters in JSON. <see cref="M:GL.MetaN.ReflectionConsole.Helpers.CommandHelper.TryParseCommand(System.String,System.String@,System.Collections.Generic.List{System.String}@,System.String@)"/></param>
+            <returns>Command result.</returns>
+            <exception cref="T:System.ArgumentNullException">'input' is null.</exception>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.CommandContainerCollection.ExecuteCommand(System.String,System.Boolean)">
+            <summary>
+            Executes given command with its given parameters (JSON).
+            <para>This method uses GetCommands() to retrieve the only matching command.</para>
+            </summary>
+            <param name="input">Command (method information) with parameters in JSON. <see cref="M:GL.MetaN.ReflectionConsole.Helpers.CommandHelper.TryParseCommand(System.String,System.String@,System.Collections.Generic.List{System.String}@,System.String@)"/></param>
+            <param name="executeOnlyFirstCommand">false : executes all commands in input (separated by ';'); true : executes only the first command.</param>
+            <returns>Command result.</returns>
+            <exception cref="T:System.ArgumentNullException">'input' is null.</exception>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.CommandContainerCollection.ExecuteCommand(System.String,System.Collections.Generic.IList{System.String})">
+            <summary>
+            Executes given command with its given parameters (JSON).
+            <para>This method uses GetCommands() to retrieve the only matching command.</para>
+            </summary>
+            <param name="command">Command (method information).</param>
+            <param name="parameters">Parameters in JSON representation.</param>
+            <returns>Command result.</returns>
+            <exception cref="T:System.ArgumentNullException">'command' is null.</exception>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.CommandContainerCollection.ExecuteCommand(System.String,System.Collections.Generic.IList{System.String},System.String)">
+            <summary>
+            Executes given command with its given parameters (JSON) and store its result in StoredValues property.
+            <para>This method uses GetCommands() to retrieve the only matching command.</para>
+            </summary>
+            <param name="command">Command (method information).</param>
+            <param name="parameters">Parameters in JSON representation.</param>
+            <param name="storeResultKey">Key used to store result in StoredValues property. If null, result won't be stored.</param>
+            <returns>Command result.</returns>
+            <exception cref="T:System.ArgumentNullException">'command' is null.</exception>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.CommandContainerCollection.ExecuteCommand(System.Reflection.MethodInfo,System.Collections.Generic.IList{System.String},System.String)">
+            <summary>
+            Executes given command with its given parameters (JSON) and store its result in StoredValues property.
+            </summary>
+            <param name="command">Command (method information).</param>
+            <param name="parameters">Parameters in JSON representation.</param>
+            <param name="storeResultKey">Key used to store result in StoredValues property. If null, result won't be stored.</param>
+            <returns>Command result.</returns>
+            <exception cref="T:System.ArgumentNullException">'command' is null.</exception>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.CommandContainerCollection.ExecuteCommand(GL.MetaN.ReflectionConsole.CommandInfo,System.Collections.Generic.IList{System.String},System.String)">
+            <summary>
+            Executes given command with its given parameters (JSON) and store its result in StoredValues property.
+            </summary>
+            <param name="command">Command info.</param>
+            <param name="parameters">Parameters in JSON representation.</param>
+            <param name="storeResultKey">Key used to store result in StoredValues property. If null, result won't be stored.</param>
+            <returns>Command result.</returns>
+            <exception cref="T:System.ArgumentNullException">'command' is null.</exception>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.CommandContainerCollection.Count">
+            <summary>
+            Gets the number of command containers contained in the collection.
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.CommandContainerCollection.IsReadOnly">
+            <summary>
+            Gets a value indicating whether the collection is read-only. Returns always false.
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.CommandContainerCollection.StoredValues">
+            <summary>
+            Gets a dictionary of stored returned values and values usable as parameters for commands.
+            <para>This dictionary is shared between every containers contained in this collection.</para>
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.CommandContainerCollection.SelectedContainer">
+            <summary>
+            Gets the current selected container.
+            <para>Default value : null.</para>
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.CommandContainerCollection.Name">
+            <summary>
+            Gets or sets the name of the collection.
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.CommandContainerCollection.SystemCommandsAllowed">
+            <summary>
+            Gets or sets the allowed system command types.
+            <para>Default value : SystemCommandTypes.All</para>
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.CommandContainerCollection.ContainerNames">
+            <summary>
+            Gets the name of all containers contained in the collection.
+            </summary>
+        </member>
+        <member name="T:GL.MetaN.ReflectionConsole.CommandExecuteOptions">
+            <summary>
+            Execution options for commands.
+            </summary>
+        </member>
+        <member name="F:GL.MetaN.ReflectionConsole.CommandExecuteOptions.None">
+            <summary>
+            Nothing specific.
+            </summary>
+        </member>
+        <member name="F:GL.MetaN.ReflectionConsole.CommandExecuteOptions.Save">
+            <summary>
+            Save the result after execution in a new command container.
+            </summary>
+        </member>
+        <member name="F:GL.MetaN.ReflectionConsole.CommandExecuteOptions.Done">
+            <summary>
+            Command already done, nothing to execute (for system commands).
+            </summary>
+        </member>
+        <member name="T:GL.MetaN.ReflectionConsole.SystemCommandTypes">
+            <summary>
+            System command type.
+            </summary>
+        </member>
+        <member name="F:GL.MetaN.ReflectionConsole.SystemCommandTypes.None">
+            <summary>
+            No system commands available.
+            </summary>
+        </member>
+        <member name="F:GL.MetaN.ReflectionConsole.SystemCommandTypes.All">
+            <summary>
+            All system commands are available. Override any other flags.
+            </summary>
+        </member>
+        <member name="F:GL.MetaN.ReflectionConsole.SystemCommandTypes.Operator">
+            <summary>
+            Boolean operators availables (And, Or, Not).
+            </summary>
+        </member>
+        <member name="F:GL.MetaN.ReflectionConsole.SystemCommandTypes.Conditional">
+            <summary>
+            Conditional statements availables (If).
+            </summary>
+        </member>
+        <member name="F:GL.MetaN.ReflectionConsole.SystemCommandTypes.Iteration">
+            <summary>
+            Iteration statements availables (While, For, ForEach).
+            </summary>
+        </member>
+        <member name="F:GL.MetaN.ReflectionConsole.SystemCommandTypes.CommandContainer">
+            <summary>
+            Commands on the current CommandContainerCollection (AddContainer, RemoveContainer).
+            </summary>
+        </member>
+        <member name="F:GL.MetaN.ReflectionConsole.SystemCommandTypes.StoredValue">
+            <summary>
+            Commands on the current Stored Values (ClearValues, RemoveValue, SetValue, GetValue).
+            </summary>
+        </member>
+        <member name="F:GL.MetaN.ReflectionConsole.SystemCommandTypes.Instantiation">
+            <summary>
+            Instantiations methods, for creating and manipulating new objects (New).
+            </summary>
+        </member>
+        <member name="F:GL.MetaN.ReflectionConsole.SystemCommandTypes.String">
+            <summary>
+            String manipulation methods (Regex, ...).
+            </summary>
+        </member>
+        <member name="T:GL.MetaN.ReflectionConsole.Exceptions.CommandInvalidException">
+            <summary>
+            Invalid command exception.
+            </summary>
+        </member>
+        <member name="T:GL.MetaN.ReflectionConsole.Exceptions.CommandNotFoundException">
+            <summary>
+            Command not found exception.
+            </summary>
+        </member>
+        <member name="T:GL.MetaN.ReflectionConsole.Attributes.CommandAttribute">
+            <summary>
+            Marks a methods as an available command.
+            </summary>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.Attributes.CommandAttribute.#ctor">
+            <summary>
+            Marks a methods as an available command.
+            </summary>
+        </member>
+        <member name="T:GL.MetaN.ReflectionConsole.Attributes.CommandIgnoreAttribute">
+            <summary>
+            Indicates to CommandsContainer to ignore this method.
+            <para>This method will not be considered as a valid command.</para>
+            </summary>
+        </member>
+        <member name="T:GL.MetaN.ReflectionConsole.CommandContainer">
+            <summary>
+            A command container. Can call methods on a given object or type.
+            </summary>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.CommandContainer.#ctor(System.Object,System.Type,System.String,GL.MetaN.ReflectionConsole.CommandBindingPolicy)">
+            <summary>
+            Private constructor.
+            </summary>
+            <param name="target">Object containing methods/commands.</param>
+            <param name="targetType">Type containing methods/commands.</param>
+            <param name="name">Name of the container.</param>
+            <param name="bindingPolicy">Command binding policy used to search for available commands in target.</param>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.CommandContainer.#ctor(System.Object)">
+            <summary>
+            Gets a new instance of CommandContainer based on given object.
+            </summary>
+            <param name="target">Object containing methods/commands.</param>
+            <exception cref="T:System.ArgumentNullException">Thrown if 'target' is null.</exception>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.CommandContainer.#ctor(System.Object,GL.MetaN.ReflectionConsole.CommandBindingPolicy)">
+            <summary>
+            Gets a new instance of CommandContainer based on given object.
+            </summary>
+            <param name="target">Object containing methods/commands.</param>
+            <param name="bindingPolicy">Command binding policy used to search for available commands in target.</param>
+            <exception cref="T:System.ArgumentNullException">Thrown if 'target' is null.</exception>
+            <exception cref="T:System.ArgumentNullException">Thrown if 'bindingPolicy' is null.</exception>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.CommandContainer.#ctor(System.Object,System.String)">
+            <summary>
+            Gets a new instance of CommandContainer based on given object.
+            </summary>
+            <param name="target">Object containing methods/commands.</param>
+            <param name="name">Name of the container.</param>
+            <exception cref="T:System.ArgumentNullException">Thrown if 'target' is null.</exception>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.CommandContainer.#ctor(System.Object,System.String,GL.MetaN.ReflectionConsole.CommandBindingPolicy)">
+            <summary>
+            Gets a new instance of CommandContainer based on given object.
+            </summary>
+            <param name="target">Object containing methods/commands.</param>
+            <param name="name">Name of the container.</param>
+            <param name="bindingPolicy">Command binding policy used to search for available commands in target.</param>
+            <exception cref="T:System.ArgumentNullException">Thrown if 'target' is null.</exception>
+            <exception cref="T:System.ArgumentNullException">Thrown if 'bindingPolicy' is null.</exception>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.CommandContainer.#ctor(System.Type)">
+            <summary>
+            Gets a new instance of CommandsContainer based on given type.
+            </summary>
+            <param name="targetType">Type containing methods/commands.</param>
+            <exception cref="T:System.ArgumentNullException">Thrown if 'targetType' is null.</exception>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.CommandContainer.#ctor(System.Type,GL.MetaN.ReflectionConsole.CommandBindingPolicy)">
+            <summary>
+            Gets a new instance of CommandContainer based on given type.
+            </summary>
+            <param name="targetType">Type containing methods/commands.</param>
+            <param name="bindingPolicy">Command binding policy used to search for available commands in target.</param>
+            <exception cref="T:System.ArgumentNullException">Thrown if 'targetType' is null.</exception>
+            <exception cref="T:System.ArgumentNullException">Thrown if 'bindingPolicy' is null.</exception>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.CommandContainer.#ctor(System.Type,System.String)">
+            <summary>
+            Gets a new instance of CommandContainer based on given type.
+            </summary>
+            <param name="targetType">Type containing methods/commands.</param>
+            <param name="name">Name of the container.</param>
+            <exception cref="T:System.ArgumentNullException">Thrown if 'targetType' is null.</exception>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.CommandContainer.#ctor(System.Type,System.String,GL.MetaN.ReflectionConsole.CommandBindingPolicy)">
+            <summary>
+            Gets a new instance of CommandContainer based on given type.
+            </summary>
+            <param name="targetType">Type containing methods/commands.</param>
+            <param name="bindingPolicy">Command binding policy used to search for available commands in target.</param>
+            <param name="name">Name of the container.</param>
+            <exception cref="T:System.ArgumentNullException">Thrown if 'targetType' is null.</exception>
+            <exception cref="T:System.ArgumentNullException">Thrown if 'bindingPolicy' is null.</exception>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.CommandContainer.IsCommand(System.Reflection.MethodInfo)">
+            <summary>
+            Indicates of given method is an available command for this container.
+            </summary>
+            <param name="methodInfo">Method description.</param>
+            <returns>'true' if given method is a valid command, 'false' otherwise.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown if 'methodInfo' is null.</exception>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.CommandContainer.GetCommands">
+            <summary>
+            Gets all available commands for this container.
+            </summary>
+            <returns>List of all available commands.</returns>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.CommandContainer.GetCommands(System.String,System.Collections.Generic.IList{System.String})">
+            <summary>
+            Gets all commands which are matching to given name and parameters (JSON).
+            </summary>
+            <param name="command">Command name.</param>
+            <param name="parameters">List of parameters. Must be in JSON representation.</param>
+            <returns>Matching commands.</returns>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.CommandContainer.GetCommandsInfo">
+            <summary>
+            Gets all available commands info for this container.
+            </summary>
+            <returns>List of all available commands info.</returns>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.CommandContainer.GetCommandsInfo(System.String,System.Collections.Generic.IList{System.String})">
+            <summary>
+            Gets all commands info which are matching to given name and parameters (JSON).
+            </summary>
+            <param name="command">Command name.</param>
+            <param name="parameters">List of parameters. Must be in JSON representation.</param>
+            <returns>Matching commands info.</returns>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.CommandContainer.ExecuteCommand(System.String)">
+            <summary>
+            Executes given command with its given parameters (JSON).
+            <para>This method uses GetCommands() to retrieve the only matching command.</para>
+            </summary>
+            <param name="input">Command (method information) with parameters in JSON. <see cref="M:GL.MetaN.ReflectionConsole.Helpers.CommandHelper.TryParseCommand(System.String,System.String@,System.Collections.Generic.List{System.String}@,System.String@)"/></param>
+            <returns>Command result.</returns>
+            <exception cref="T:System.ArgumentNullException">'input' is null.</exception>
+            <exception cref="T:System.ArgumentException">'input' is not valid (CommandHelper.TryParseCommand() returned false).</exception>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.CommandContainer.ExecuteCommand(System.String,System.Boolean)">
+            <summary>
+            Executes given command with its given parameters (JSON).
+            <para>This method uses GetCommands() to retrieve the only matching command.</para>
+            </summary>
+            <param name="input">Command (method information) with parameters in JSON. <see cref="M:GL.MetaN.ReflectionConsole.Helpers.CommandHelper.TryParseCommand(System.String,System.String@,System.Collections.Generic.List{System.String}@,System.String@)"/></param>
+            <param name="executeOnlyFirstCommand">false : executes all commands in input (separated by ';'); true : executes only the first command.</param>
+            <returns>Command result.</returns>
+            <exception cref="T:System.ArgumentNullException">'input' is null.</exception>
+            <exception cref="T:System.ArgumentException">'input' is not valid (CommandHelper.TryParseCommand() returned false).</exception>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.CommandContainer.ExecuteCommand(System.String,System.Collections.Generic.IList{System.String})">
+            <summary>
+            Executes given command with its given parameters (JSON).
+            <para>This method uses GetCommands() to retrieve the only matching command.</para>
+            </summary>
+            <param name="command">Command (method information).</param>
+            <param name="parameters">Parameters in JSON representation.</param>
+            <returns>Command result.</returns>
+            <exception cref="T:System.ArgumentException">'command' is not valid (not in GetCommands(command, parameters)) or ambiguous (multiple matches in GetCommands(command, parameters)).</exception>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.CommandContainer.ExecuteCommand(System.String,System.Collections.Generic.IList{System.String},System.String)">
+            <summary>
+            Executes given command with its given parameters (JSON) and store its result in StoredValues property.
+            <para>This method uses GetCommands() to retrieve the only matching command.</para>
+            </summary>
+            <param name="command">Command (method information).</param>
+            <param name="parameters">Parameters in JSON representation.</param>
+            <param name="storeResultKey">Key used to store result in StoredValues property. If null, result won't be stored.</param>
+            <returns>Command result.</returns>
+            <exception cref="T:System.ArgumentNullException">'command' is null.</exception>
+            <exception cref="T:System.ArgumentException">'command' is not valid (not in GetCommands(command, parameters)) or ambiguous (multiple matches in GetCommands(command, parameters)).</exception>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.CommandContainer.ExecuteCommand(System.Reflection.MethodInfo,System.Collections.Generic.IList{System.String})">
+            <summary>
+            Executes given command with its given parameters (JSON).
+            </summary>
+            <param name="command">Command (method information).</param>
+            <param name="parameters">Parameters in JSON representation.</param>
+            <returns>Command result.</returns>
+            <exception cref="T:System.ArgumentNullException">'command' is null.</exception>
+            <exception cref="T:System.ArgumentException">'command' is not valid.</exception>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.CommandContainer.ExecuteCommand(System.Reflection.MethodInfo,System.Collections.Generic.IList{System.String},System.String)">
+            <summary>
+            Executes given command with its given parameters (JSON) and store its result in StoredValues property.
+            </summary>
+            <param name="command">Command (method information).</param>
+            <param name="parameters">Parameters in JSON representation.</param>
+            <param name="storeResultKey">Key used to store result in StoredValues property. If null, result won't be stored.</param>
+            <returns>Command result.</returns>
+            <exception cref="T:System.ArgumentNullException">'command' is null.</exception>
+            <exception cref="T:System.ArgumentException">'command' is not valid.</exception>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.CommandContainer.GetHashCode">
+            <summary>
+            Returns the hash code for this container.
+            </summary>
+            <returns>Hash code for this container.</returns>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.CommandContainer.Name">
+            <summary>
+            Gets or sets container name.
+            <para>Valued by default on runtime to 'TargetType.Name'.</para>
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.CommandContainer.Target">
+            <summary>
+            Gets the object containing commands. Can be null in case of static classes.
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.CommandContainer.TargetType">
+            <summary>
+            Gets the type of 'Target', the type containing commands. Can't be null.
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.CommandContainer.BindingPolicy">
+            <summary>
+            Gets the commands binding policy used by CommandContainer to search for available commands in Target/TargetType.
+            <para>Warning : after first command execution (or first call to "GetCommands()), 
+            changes on this property won't be reflected on the commands list, unless its property "AlwaysCheckPolicy" is set to 'true'.</para>
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.CommandContainer.StoredValues">
+            <summary>
+            Gets a dictionary of stored returned values and values usable as parameters for commands.
+            </summary>
+        </member>
+        <member name="T:GL.MetaN.ReflectionConsole.ConsoleAppCommandManager">
+            <summary>
+            Commands manager for .NET Console applications.
+            <para>Take control of the Console and provide to user a way to manipulate .NET objects (CommandsContainers).</para>
+            </summary>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.ConsoleAppCommandManager.#ctor(GL.MetaN.ReflectionConsole.CommandContainer[])">
+            <summary>
+            Gets a new instance of commands manager for .NET Console applications.
+            </summary>
+            <param name="containers">List of all commands containers available.</param>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.ConsoleAppCommandManager.Run">
+            <summary>
+            Starts the manager. Take control of the Console.
+            </summary>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.ConsoleAppCommandManager.Console_CancelKeyPress(System.Object,System.ConsoleCancelEventArgs)">
+            <summary>
+            Used to cancel press of "Ctrl+C".
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.ConsoleAppCommandManager.PrintMenu">
+            <summary>
+            Displays menu.
+            </summary>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.ConsoleAppCommandManager.PrintHelp">
+            <summary>
+            Displays general help (list of all available commands, or list of commands of selected container).
+            </summary>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.ConsoleAppCommandManager.ListCommands(GL.MetaN.ReflectionConsole.CommandContainer)">
+            <summary>
+            Displays commands of given containers.
+            </summary>
+            <param name="container">Containers.</param>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.ConsoleAppCommandManager.PrintHelp(System.String)">
+            <summary>
+            Displays help for given command.
+            </summary>
+            <param name="command">Command.</param>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.ConsoleAppCommandManager.Containers">
+            <summary>
+            Gets all available commands containers.
+            </summary>
+        </member>
+        <member name="P:GL.MetaN.ReflectionConsole.ConsoleAppCommandManager.CurrentContainer">
+            <summary>
+            Gets or sets the current commands container.
+            <para>Can be set to 'null' (no container selected).</para>
+            </summary>
+        </member>
+        <member name="T:GL.MetaN.ReflectionConsole.Helpers.CommandHelper">
+            <summary>
+            Helper for commands.
+            </summary>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.Helpers.CommandHelper.GetAttribute``1(System.Reflection.MethodInfo,System.Boolean)">
+            <summary>
+            Gets the first attribute of given type T in given MethodInfo.
+            </summary>
+            <typeparam name="T">Type of attribute to get.</typeparam>
+            <param name="methodInfo">Method information.</param>
+            <param name="inherit">true to search this member's inheritance chain to find the attributes; otherwise, false.</param>
+            <returns>Attribute if found, null otherwise.</returns>
+            <exception cref="T:System.ArgumentNullException">'methodInfo' is null.</exception>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.Helpers.CommandHelper.GetAttributes``1(System.Reflection.MethodInfo,System.Boolean)">
+            <summary>
+            Gets all attributes of given type T in given MethodInfo.
+            </summary>
+            <typeparam name="T">Type of attribute to get.</typeparam>
+            <param name="methodInfo">Method information.</param>
+            <param name="inherit">true to search this member's inheritance chain to find the attributes; otherwise, false.</param>
+            <returns>Attributes if found, null otherwise.</returns>
+            <exception cref="T:System.ArgumentNullException">'methodInfo' is null.</exception>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.Helpers.CommandHelper.GetCommandAttribute(System.Reflection.MethodInfo)">
+            <summary>
+            Gets the Command attribute on a given method. Returns null if attribute is not set for this method.
+            </summary>
+            <param name="methodInfo">Method information.</param>
+            <returns>Command attribute if found, null otherwise.</returns>
+            <exception cref="T:System.ArgumentNullException">'methodInfo' is null.</exception>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.Helpers.CommandHelper.GetCommandIgnoreAttribute(System.Reflection.MethodInfo)">
+            <summary>
+            Gets the CommandIgnore attribute on a given method. Returns null if attribute is not set for this method.
+            </summary>
+            <param name="methodInfo">Method information.</param>
+            <returns>CommandIgnore attribute if found, null otherwise.</returns>
+            <exception cref="T:System.ArgumentNullException">'methodInfo' is null.</exception>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.Helpers.CommandHelper.GetCommandReturnAttribute(System.Reflection.MethodInfo)">
+            <summary>
+            Gets the CommandReturn attribute on a given method. Returns null if attribute is not set for this method.
+            </summary>
+            <param name="methodInfo">Method information.</param>
+            <returns>CommandReturn attribute if found, null otherwise.</returns>
+            <exception cref="T:System.ArgumentNullException">'methodInfo' is null.</exception>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.Helpers.CommandHelper.GetCommandParameterAttributes(System.Reflection.MethodInfo)">
+            <summary>
+            Gets all CommandParameter attributes on a given method. Returns null if any attribute is set for this method.
+            </summary>
+            <param name="methodInfo">Method information.</param>
+            <returns>CommandParameter attributes if found, null otherwise.</returns>
+            <exception cref="T:System.ArgumentNullException">'methodInfo' is null.</exception>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.Helpers.CommandHelper.GetCommandSummaryAttribute(System.Reflection.MethodInfo)">
+            <summary>
+            Gets the CommandSummary attribute on a given method. Returns null if attribute is not set for this method.
+            </summary>
+            <param name="methodInfo">Method information.</param>
+            <returns>CommandSummary attribute if found, null otherwise.</returns>
+            <exception cref="T:System.ArgumentNullException">'methodInfo' is null.</exception>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.Helpers.CommandHelper.GetCommandAvailabilityAttribute(System.Reflection.MethodInfo)">
+            <summary>
+            Gets the CommandAvailability attribute on a given method. Returns null if attribute is not set for this method.
+            </summary>
+            <param name="methodInfo">Method information.</param>
+            <returns>CommandAvailability attribute if found, null otherwise.</returns>
+            <exception cref="T:System.ArgumentNullException">'methodInfo' is null.</exception>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.Helpers.CommandHelper.TryParseCommand(System.String,System.String@,System.Collections.Generic.List{System.String}@,System.String@)">
+            <summary>
+            Parses an input string and extract asked command name and its parameters.
+            <para>Command name and parameters values must be separed by white spaces.</para>
+            <para>Parameters must be written in JSON. See http://json.org/ for more info.</para>
+            </summary>
+            <param name="input">Input string to parse.</param>
+            <param name="command">Command name.</param>
+            <param name="parameters">List of command parameters.</param>
+            <param name="result">Result name.</param>
+            <returns>0 if input is null or empty, a positive value if a command is successfully readed (amount of readed chars in the input), a negative value if an error happened (invalid input).</returns>
+        </member>
+        <member name="T:GL.MetaN.ReflectionConsole.Helpers.ConsoleAppHelper">
+            <summary>
+            Helper for .NET Console applications.
+            </summary>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.Helpers.ConsoleAppHelper.PrintSeparatorLine">
+            <summary>
+            Writes a seperator line to Console.
+            </summary>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.Helpers.ConsoleAppHelper.PrintSeparatorLine(System.Char)">
+            <summary>
+            Writes a seperator line to Console with given char.
+            </summary>
+            <param name="separator">Separator to use.</param>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.Helpers.ConsoleAppHelper.Ask(System.String)">
+            <summary>
+            Asks user to enter a value for a given parameter name.
+            </summary>
+            <param name="name">Parameter name.</param>
+            <returns>Value.</returns>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.Helpers.ConsoleAppHelper.Ask(System.String,System.Int32,System.Object[])">
+            <summary>
+            Asks user to enter a value for a given parameter name.
+            <para>If user doesn't enter a value, then default value will be returned.</para>
+            <para>A list of values will be displayed to user.</para>
+            </summary>
+            <param name="name">Parameter name.</param>
+            <param name="indexDefault">Index of the default value in the 'values' list. Use '-1' to disable default value.</param>
+            <param name="values">List of values to display to the user.</param>
+            <returns>Value.</returns>
+        </member>
+        <member name="T:GL.MetaN.ReflectionConsole.Helpers.JsonHelper">
+            <summary>
+            Helper for JSON serialization.
+            </summary>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.Helpers.JsonHelper.ToJson(System.Object)">
+            <summary>
+            Serialize an object into its JSON representation.
+            </summary>
+            <param name="graph">Object to serialize.</param>
+            <returns>JSON representation.</returns>
+        </member>
+        <member name="M:GL.MetaN.ReflectionConsole.Helpers.JsonHelper.FromJson``1(System.String)">
+            <summary>
+            Deserialize a JSON object.
+            </summary>
+            <typeparam name="T">Type of serialized object.</typeparam>
+            <param name="text">JSON reprentation of serialized object.</param>
+            <returns>Deserialized object.</returns>
+        </member>
+    </members>
+</doc>
