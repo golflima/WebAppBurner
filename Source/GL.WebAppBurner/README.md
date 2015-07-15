@@ -22,15 +22,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 This program uses the following copyrighted materials :
-
 * GL.MetaN.ReflectionConsole
    - copyright : Jérémy WALTHER, distributed under GNU LGPL v3
    - website : http://sourceforge.net/projects/metan
-
 * Google Material design icons
    - copyright : Google, distributed under CC-BY 4.0
    - website : http://www.google.com/design/spec/style/icons.html
-
 * TaskbarProgress
    - copyright : WholsRich, distributed under CC-BY-SA 3.0
    - website : http://stackoverflow.com/questions/1295890/windows-7-progress-bar-in-taskbar-in-c/24187171#24187171

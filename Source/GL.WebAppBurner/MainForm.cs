@@ -36,6 +36,7 @@ namespace GL.WebAppBurner
 
         private List<TestRequestInfo> requests;
         private Stopwatch stopwatch;
+        private bool pauseRequested;
 
         #endregion
 
@@ -102,7 +103,12 @@ namespace GL.WebAppBurner
                     refreshTimer.Stop();
                     startButton.Enabled = true;
                     stopButton.Enabled = false;
-                    if (pauseButton.Enabled)
+                    if (pauseRequested)
+                    {
+                        TaskbarProgress.SetState(this.Handle, TaskbarProgress.TaskbarStates.Paused);
+                        pauseRequested = false;
+                    }
+                    else
                     {
                         requestProgressBar.Value = 0;
                         TaskbarProgress.SetState(this.Handle, TaskbarProgress.TaskbarStates.NoProgress);
@@ -114,10 +120,6 @@ namespace GL.WebAppBurner
                         resultForm.Show();
                         Runner = null;
                         this.stopwatch.Reset();
-                    }
-                    else
-                    {
-                        TaskbarProgress.SetState(this.Handle, TaskbarProgress.TaskbarStates.Paused);
                     }
                 }
             }
@@ -209,6 +211,7 @@ namespace GL.WebAppBurner
             if (Runner != null) { Runner.Stop(); }
             TaskbarProgress.SetState(this.Handle, TaskbarProgress.TaskbarStates.Error);
             pauseButton.Enabled = false;
+            pauseRequested = true;
         }
 
         private void requestGrid_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
